@@ -30,7 +30,7 @@ import ws_abstraction
 
 globalSocket = {}
 botSockType = 1
-botCount = 150
+botCount = 50
 proxy_url = "containerlx"
 proxy_port="9050"
 
