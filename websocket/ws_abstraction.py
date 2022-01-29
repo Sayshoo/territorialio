@@ -47,7 +47,7 @@ class WebsocketClientManager:
 
         if(packet_id == 0x90):
             obj = messageTypes.deserialize(data, messageTypes.seaAttack)
-            bot.generateSpawnPointsSquare(obj['X'], obj['Y'], 150)
+            bot.generateSpawnPointsSquare(obj['X'], obj['Y'], self.bot_count)
             self.sendLocationAll(obj)
         else :
             self.sentData.append(data)
