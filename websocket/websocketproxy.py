@@ -15,7 +15,7 @@ import struct
 import sys
 import time
 import traceback
-import loghelper.py
+import loghelper
 
 from importlib import reload
 from random import randrange
