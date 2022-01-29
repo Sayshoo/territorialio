@@ -84,7 +84,7 @@ async def websocketProxy(websocket, path):
     
     #cloneSocks = [await websockets.connect(url, ping_timeout=60, ping_interval=5) for _ in range(3)]
     #cloneSocks = await connectSlaveClients(url, botCount)
-    websocketManager = ws_abstraction.WebsocketClientManager(url, proxy_url, proxy_port)
+    websocketManager = ws_abstraction.WebsocketClientManager(url, proxy_url, proxy_port, botCount)
     [ websocketManager.connect(id_generator()) for _ in range(botCount) ]
     #csLen = len(cloneSocks)
     #print("connected %s" %csLen)
