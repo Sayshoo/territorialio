@@ -15,6 +15,8 @@ import struct
 import sys
 import time
 import traceback
+import loghelper.py
+
 from importlib import reload
 from random import randrange
 
@@ -33,6 +35,9 @@ botSockType = 1
 botCount = 50
 proxy_url = "containerlx"
 proxy_port="9050"
+
+
+serverErrorLog = "server_error.log"
 
 async def sendJoin():
     print("sendJoin")
@@ -120,6 +125,7 @@ async def clientToServer(ws, websocket, websocketManager):
                 await websocket.send(message)
             except Exception as e:
                 ws.close()
+                loghelper.logLine(serverErrorLog, traceback.format_exc())
     except Exception as e:
         pass
 
@@ -147,6 +153,7 @@ async def serverToClient(ws, websocket, websocketManager):
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 #print(exc_type, fname, exc_tb.tb_lineno)        
                 print(traceback.format_exc())
+                loghelper.logLine(serverErrorLog, traceback.format_exc())
                 print("=--------------serverToClient Exception--------------=")
             
             #await ws.send(messageOverride)
