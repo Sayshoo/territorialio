@@ -26,7 +26,7 @@ def generateSpawnPointsSquare(x, y, count):
     xArr = []
     yArr = []
 
-    sideSize = int(math.sqrt(count+10))
+    sideSize = int(math.sqrt(count)+3)
     for Y in range (int(sideSize/-2), int(sideSize/2)):
         for X in range(int(sideSize/-2), int(sideSize/2)):
             xArr.append(x + X * deltaDistance)
