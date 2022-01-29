@@ -15,13 +15,14 @@ class WebsocketClient:
         self.lock = Lock()
 
 class WebsocketClientManager:
-    def __init__(self, url, proxy_url, proxy_port):
+    def __init__(self, url, proxy_url, proxy_port, bot_count):
         self.url = url
         self.proxy_url = proxy_url
         self.proxy_port = proxy_port
         self.wsClients = []
         self.sentData = []
         self.addNewClientLock = Lock()
+        self.bot_count = bot_count
 
     def connect(self, account):
         print("Connecting bot")
@@ -56,7 +57,7 @@ class WebsocketClientManager:
         copyClients = list(self.wsClients)
         for i in range(len(copyClients)):
             try:
-                newX, newY = bot.getNextSpawnPoint(obj['X'], obj['Y'], 150)
+                newX, newY = bot.getNextSpawnPoint(obj['X'], obj['Y'], self.bot_count)
                 obj['X'] = newX
                 obj['Y'] = newY
                 data = bytes(messageTypes.serialize(obj, obj["_schema_"]))
