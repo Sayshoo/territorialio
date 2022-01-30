@@ -49,9 +49,26 @@ class WebsocketClientManager:
             obj = messageTypes.deserialize(data, messageTypes.seaAttack)
             bot.generateSpawnPointsSquare(obj['X'], obj['Y'], self.bot_count)
             self.sendLocationAll(obj)
+        elif(packet_id == 0x10):
+            obj = messageTypes.deserialize(data, messageTypes.lobbyConnect)
+            self.sendLobbyConnectAll(obj)
         else :
             self.sentData.append(data)
             self.sendDataToAll()
+    
+    
+    def sendLobbyConnectAll(self, obj):
+        copyClients = list(self.wsClients)
+        for i in range(len(copyClients)):
+            try:
+                obj['clutter'] -= 10
+                data = bytes(messageTypes.serialize(obj, obj["_schema_"]))
+                Thread(target=copyClients[i].wsClient.send_binary,args=(data,)).start()
+            except Exception as e:
+                print("----- Exception forwarding to clonesock ------")
+                print(traceback.format_exc())
+                print("----- Exception forwarding to clonesock ------")
+                self.wsClients.remove(copyClients[i])
 
     def sendLocationAll(self, obj):
         copyClients = list(self.wsClients)
